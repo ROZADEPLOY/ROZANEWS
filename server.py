@@ -1,58 +1,27 @@
-from flask import Flask, render_template, request, jsonify
-from flask_cors import CORS
-import os
+
+from flask import Flask, request, redirect, render_template
 
 app = Flask(__name__)
-CORS(app)
 
 ADMIN_IDS = [7264453091]
-USERS = {}
 
-TASKS = []
-ALERT = {"active": False}
-
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template("index.html")
+    tg_id = request.args.get('id', type=int)
+    return render_template("index.html", user_id=tg_id)
 
-@app.route("/api/check_user", methods=["POST"])
+@app.route('/check_user')
 def check_user():
-    data = request.json
-    user_id = int(data.get("user_id", 0))
-    if user_id in ADMIN_IDS:
-        return jsonify({"role": "admin"})
-    elif user_id in USERS:
-        return jsonify({"role": "user", "codename": USERS[user_id]})
+    tg_id = request.args.get('id', type=int)
+    if tg_id in ADMIN_IDS:
+        return redirect('/admin')
     else:
-        return jsonify({"role": "none"})
+        return redirect('/user')
 
-@app.route("/api/add_user", methods=["POST"])
-def add_user():
-    data = request.json
-    user_id = int(data["user_id"])
-    codename = data["codename"]
-    USERS[user_id] = codename
-    return jsonify(success=True)
+@app.route('/admin')
+def admin_panel():
+    return render_template("admin.html")
 
-@app.route("/api/create_task", methods=["POST"])
-def create_task():
-    data = request.json
-    TASKS.append(data)
-    return jsonify(success=True)
-
-@app.route("/api/get_tasks", methods=["POST"])
-def get_tasks():
-    user_id = int(request.json["user_id"])
-    if user_id in ADMIN_IDS:
-        return jsonify(TASKS)
-    else:
-        return jsonify([t for t in TASKS if t["user_id"] == user_id])
-
-@app.route("/api/alert", methods=["POST"])
-def alert():
-    ALERT["active"] = request.json["active"]
-    return jsonify(success=True)
-
-@app.route("/api/get_alert", methods=["POST"])
-def get_alert():
-    return jsonify(ALERT)
+@app.route('/user')
+def user_panel():
+    return render_template("user.html")
