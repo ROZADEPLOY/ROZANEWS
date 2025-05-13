@@ -3,14 +3,29 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Роза | Проверка доступа</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            background: linear-gradient(to bottom right, #003300, #000000);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        a.btn {
+            background-color: #007a3d;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-<body class="dark">
-    <div class="container centered">
-        <h1>Роза | Проверка доступа</h1>
-        <a href="/check_user?id={{ user_id }}" class="btn btn-primary">Проверить доступ</a>
-    </div>
+<body>
+    <h1>🌹 Роза | Проверка доступа</h1>
+    <a href="/check_user?id={{ user_id }}" class="btn">Проверить доступ</a>
 </body>
 </html>

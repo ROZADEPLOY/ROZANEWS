@@ -3,45 +3,48 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Панель администратора</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Роза | Админ</title>
+    <style>
+        body { font-family: sans-serif; background: #0b0f0c; color: white; padding: 20px; }
+        h2 { color: #55ff55; }
+        form { margin-bottom: 20px; }
+        input, select, textarea {
+            width: 100%; padding: 10px; margin: 5px 0;
+            background: #111; color: white; border: none; border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007a3d;
+            color: white; border: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
 </head>
-<body class="dark">
-<div class="container">
-    <h2>Добро пожаловать, администратор</h2>
-
-    <form action="/add_employee" method="post">
-        <h3>Добавить сотрудника</h3>
-        <input type="text" name="employee_id" placeholder="ID сотрудника" required>
-        <input type="text" name="callsign" placeholder="Позывной" required>
-        <button type="submit">Добавить</button>
+<body>
+    <h2>Добавить сотрудника</h2>
+    <form action="/add_employee?id={{ user_id }}" method="post">
+        <input name="user_id" placeholder="ID сотрудника">
+        <input name="callsign" placeholder="Позывной">
+        <button>Добавить</button>
     </form>
 
-    <form action="/create_task" method="post">
-        <h3>Создать задачу</h3>
-        <input type="text" name="employee_id" placeholder="ID сотрудника" required>
-        <input type="text" name="title" placeholder="Заголовок задачи" required>
-        <textarea name="description" placeholder="Описание задачи" required></textarea>
-        <button type="submit">Создать задачу</button>
+    <h2>Создать задачу</h2>
+    <form action="/add_task?id={{ user_id }}" method="post">
+        <input name="user_id" placeholder="ID сотрудника">
+        <input name="title" placeholder="Заголовок задачи">
+        <textarea name="description" placeholder="Описание задачи"></textarea>
+        <button>Создать задачу</button>
     </form>
 
-    <form action="/send_alert" method="post">
-        <h3>Объявить тревогу</h3>
+    <h2>Объявить тревогу</h2>
+    <form action="/send_alert?id={{ user_id }}" method="post">
         <select name="level">
-            <option value="низкий">Низкий</option>
-            <option value="средний">Средний</option>
-            <option value="высокий">Высокий</option>
+            <option>Низкий</option>
+            <option>Средний</option>
+            <option>Высокий</option>
         </select>
-        <button type="submit">Отправить тревогу</button>
+        <button>Отправить тревогу</button>
     </form>
-
-    <h3>Загруженные файлы:</h3>
-    <ul>
-        {% for file in uploaded_files %}
-        <li><a href="{{ file.url }}" target="_blank">{{ file.name }}</a></li>
-        {% endfor %}
-    </ul>
-</div>
 </body>
 </html>

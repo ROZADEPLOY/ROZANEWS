@@ -3,30 +3,35 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Задачи сотрудника</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Роза | Сотрудник</title>
+    <style>
+        body { font-family: sans-serif; background: #0b0f0c; color: white; padding: 20px; }
+        h2 { color: #55ff55; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+        form { margin-top: 20px; }
+        input[type=file] {
+            background: #111; padding: 10px; border-radius: 5px; width: 100%;
+        }
+        button {
+            background: #007a3d; color: white;
+            border: none; padding: 10px; border-radius: 5px;
+        }
+    </style>
 </head>
-<body class="dark">
-<div class="container">
-    <h2>Задачи для {{ callsign }}</h2>
+<body>
+    <h2>Ваши задачи</h2>
     <ul>
         {% for task in tasks %}
         <li><strong>{{ task.title }}</strong>: {{ task.description }}</li>
         {% endfor %}
     </ul>
 
+    <h2>Загрузить отчёт</h2>
     <form action="/upload_report" method="post" enctype="multipart/form-data">
-        <h3>Загрузить отчёт</h3>
-        <input type="file" name="report_file" required>
-        <button type="submit">Отправить</button>
+        <input type="hidden" name="user_id" value="{{ user_id }}">
+        <input type="file" name="file">
+        <button>Отправить</button>
     </form>
-
-    {% if alert %}
-    <div class="alert alert-danger">
-        <strong>Тревога!</strong> Уровень: {{ alert.level }}
-    </div>
-    {% endif %}
-</div>
 </body>
 </html>
