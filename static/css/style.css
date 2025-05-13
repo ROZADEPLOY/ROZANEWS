@@ -1,0 +1,15 @@
+body {
+    background: linear-gradient(to bottom, #003300, #000000);
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+    padding: 2em;
+}
+button {
+    background-color: #b30000;
+    color: white;
+    border: none;
+    padding: 1em;
+    cursor: pointer;
+    font-weight: bold;
+}
