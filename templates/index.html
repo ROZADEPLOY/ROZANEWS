@@ -2,43 +2,15 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Роза — система доступа</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #0f2e19, #000);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-    }
-    .check-access {
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      background-color: #1e8b47;
-      border: none;
-      color: white;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: background 0.3s ease;
-    }
-    .check-access:hover {
-      background-color: #145d31;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Роза | Проверка доступа</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
-  <h1>Роза | Проверка доступа</h1>
-  <a href="/check_user?id=7264453091" class="check-access">Проверить доступ</a>
+<body class="dark">
+    <div class="container centered">
+        <h1>Роза | Проверка доступа</h1>
+        <a href="/check_user?id={{ user_id }}" class="btn btn-primary">Проверить доступ</a>
+    </div>
 </body>
 </html>

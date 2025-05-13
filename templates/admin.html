@@ -2,104 +2,46 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Роза | Админ</title>
-  <style>
-    body {
-      background-color: #101820;
-      color: #fff;
-      font-family: sans-serif;
-      padding: 2rem;
-    }
-    h2 { color: #1e8b47; }
-    input, select, button, textarea {
-      margin: 0.5rem 0;
-      padding: 0.5rem;
-      width: 100%;
-      max-width: 500px;
-    }
-    button {
-      background: #1e8b47;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #145d31;
-    }
-    .card {
-      background: #1c1c1c;
-      padding: 1rem;
-      margin-top: 1rem;
-      border-left: 4px solid #1e8b47;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
-  <h2>Добавить сотрудника</h2>
-  <input type="number" id="new_id" placeholder="ID сотрудника">
-  <input type="text" id="new_name" placeholder="Позывной">
-  <button onclick="addUser()">Добавить</button>
+<body class="dark">
+<div class="container">
+    <h2>Добро пожаловать, администратор</h2>
 
-  <h2>Создать задачу</h2>
-  <input type="number" id="task_user" placeholder="ID сотрудника">
-  <input type="text" id="task_title" placeholder="Заголовок задачи">
-  <textarea id="task_body" placeholder="Описание задачи"></textarea>
-  <button onclick="createTask()">Создать задачу</button>
+    <form action="/add_employee" method="post">
+        <h3>Добавить сотрудника</h3>
+        <input type="text" name="employee_id" placeholder="ID сотрудника" required>
+        <input type="text" name="callsign" placeholder="Позывной" required>
+        <button type="submit">Добавить</button>
+    </form>
 
-  <h2>Объявить тревогу</h2>
-  <select id="alert_level">
-    <option value="Низкий">Низкий</option>
-    <option value="Средний">Средний</option>
-    <option value="Критический">Критический</option>
-  </select>
-  <button onclick="sendAlert()">Отправить тревогу</button>
+    <form action="/create_task" method="post">
+        <h3>Создать задачу</h3>
+        <input type="text" name="employee_id" placeholder="ID сотрудника" required>
+        <input type="text" name="title" placeholder="Заголовок задачи" required>
+        <textarea name="description" placeholder="Описание задачи" required></textarea>
+        <button type="submit">Создать задачу</button>
+    </form>
 
-  <h2>Полученные отчёты</h2>
-  <div id="results"></div>
+    <form action="/send_alert" method="post">
+        <h3>Объявить тревогу</h3>
+        <select name="level">
+            <option value="низкий">Низкий</option>
+            <option value="средний">Средний</option>
+            <option value="высокий">Высокий</option>
+        </select>
+        <button type="submit">Отправить тревогу</button>
+    </form>
 
-<script>
-function addUser() {
-  fetch('/api/add_user', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      user_id: document.getElementById('new_id').value,
-      codename: document.getElementById('new_name').value
-    })
-  }).then(() => alert("Сотрудник добавлен"));
-}
-
-function createTask() {
-  fetch('/api/create_task', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      user_id: document.getElementById('task_user').value,
-      title: document.getElementById('task_title').value,
-      body: document.getElementById('task_body').value
-    })
-  }).then(() => alert("Задача создана"));
-}
-
-function sendAlert() {
-  fetch('/api/alert', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ level: document.getElementById('alert_level').value })
-  }).then(() => alert("Тревога отправлена"));
-}
-
-fetch("/api/get_results").then(res => res.json()).then(data => {
-  const container = document.getElementById("results");
-  data.forEach(r => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `<strong>ID:</strong> ${r.user_id}<br><strong>Отчёт:</strong> ${r.text}`;
-    container.appendChild(div);
-  });
-});
-</script>
+    <h3>Загруженные файлы:</h3>
+    <ul>
+        {% for file in uploaded_files %}
+        <li><a href="{{ file.url }}" target="_blank">{{ file.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
 </body>
 </html>
