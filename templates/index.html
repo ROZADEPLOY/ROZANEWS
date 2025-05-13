@@ -4,11 +4,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Роза (ЦОИ)</title>
+  <title>Роза | Проверка доступа</title>
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body style="font-family: sans-serif; background: #002d00; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-  <h1>🌹 Добро пожаловать в «Розу»</h1>
-  <p>Web-интерфейс для секретной группы</p>
-  <a href="/check_user?id={{ user_id }}" style="padding: 10px 20px; background-color: crimson; color: white; text-decoration: none; border-radius: 5px;">Проверить доступ</a>
+<body>
+  <div class="container">
+    <h1>🌹 Система «Роза»</h1>
+    <p>Для служебного пользования</p>
+    <button onclick="checkAccess()">Проверить доступ</button>
+  </div>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    const user = window.Telegram.WebApp.initDataUnsafe.user;
+    function checkAccess() {
+      if (user && user.id) {
+        window.location.href = `/check_user?id=${user.id}`;
+      } else {
+        alert("Ошибка получения данных Telegram");
+      }
+    }
+  </script>
 </body>
 </html>

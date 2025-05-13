@@ -1,6 +1,20 @@
 
 <!DOCTYPE html>
 <html lang="ru">
-<head><meta charset="UTF-8"><title>Панель Сотрудника</title></head>
-<body><h1>Панель сотрудника</h1><p>Функции: задачи, тревоги, загрузка результатов</p></body>
+<head><meta charset="UTF-8"><title>Панель Сотрудника</title><link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<h1>Панель сотрудника</h1>
+<div class="block" id="tasks"></div>
+<div class="block">
+  <h2>📤 Загрузить отчёт</h2>
+  <textarea id="report_content" placeholder="Текст отчёта"></textarea>
+  <button onclick="uploadReport()">Отправить</button>
+</div>
+<div class="block">
+  <h2>🚨 Тревога</h2>
+  <p id="alert_status">Проверка тревоги...</p>
+</div>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="/static/js/user.js"></script>
+</body>
 </html>

@@ -1,6 +1,31 @@
 
 <!DOCTYPE html>
 <html lang="ru">
-<head><meta charset="UTF-8"><title>Панель Администратора</title></head>
-<body><h1>Панель администратора</h1><p>Функции: задачи, тревоги, сотрудники и т.д.</p></body>
+<head><meta charset="UTF-8"><title>Панель Администратора</title><link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<h1>Панель администратора</h1>
+<div class="block">
+  <h2>Добавить сотрудника</h2>
+  <input type="text" id="new_id" placeholder="ID сотрудника" />
+  <input type="text" id="new_codename" placeholder="Позывной" />
+  <button onclick="addUser()">Добавить</button>
+</div>
+<div class="block">
+  <h2>Создать задачу</h2>
+  <input type="text" id="task_id" placeholder="ID сотрудника" />
+  <input type="text" id="task_title" placeholder="Заголовок" />
+  <textarea id="task_desc" placeholder="Описание"></textarea>
+  <select id="task_priority">
+    <option value="Низкий">Низкий</option>
+    <option value="Средний">Средний</option>
+    <option value="Высокий">Высокий</option>
+  </select>
+  <button onclick="createTask()">Создать задачу</button>
+</div>
+<div class="block">
+  <h2>Отправить тревогу</h2>
+  <button onclick="sendAlert()">🚨 Объявить тревогу</button>
+</div>
+<script src="/static/js/admin.js"></script>
+</body>
 </html>
