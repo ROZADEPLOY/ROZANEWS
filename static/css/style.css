@@ -1,15 +1,18 @@
 body {
-    background: linear-gradient(to bottom, #003300, #000000);
-    color: white;
-    font-family: sans-serif;
-    text-align: center;
-    padding: 2em;
+  background: linear-gradient(#003300, black);
+  color: white;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 button {
-    background-color: #b30000;
-    color: white;
-    border: none;
-    padding: 1em;
-    cursor: pointer;
-    font-weight: bold;
+  background: #c00;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  border-radius: 5px;
 }
