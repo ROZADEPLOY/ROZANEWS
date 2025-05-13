@@ -1,31 +1,105 @@
 
 <!DOCTYPE html>
 <html lang="ru">
-<head><meta charset="UTF-8"><title>Панель Администратора</title><link rel="stylesheet" href="/static/css/style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Роза | Админ</title>
+  <style>
+    body {
+      background-color: #101820;
+      color: #fff;
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+    h2 { color: #1e8b47; }
+    input, select, button, textarea {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      width: 100%;
+      max-width: 500px;
+    }
+    button {
+      background: #1e8b47;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #145d31;
+    }
+    .card {
+      background: #1c1c1c;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-left: 4px solid #1e8b47;
+    }
+  </style>
+</head>
 <body>
-<h1>Панель администратора</h1>
-<div class="block">
   <h2>Добавить сотрудника</h2>
-  <input type="text" id="new_id" placeholder="ID сотрудника" />
-  <input type="text" id="new_codename" placeholder="Позывной" />
+  <input type="number" id="new_id" placeholder="ID сотрудника">
+  <input type="text" id="new_name" placeholder="Позывной">
   <button onclick="addUser()">Добавить</button>
-</div>
-<div class="block">
+
   <h2>Создать задачу</h2>
-  <input type="text" id="task_id" placeholder="ID сотрудника" />
-  <input type="text" id="task_title" placeholder="Заголовок" />
-  <textarea id="task_desc" placeholder="Описание"></textarea>
-  <select id="task_priority">
+  <input type="number" id="task_user" placeholder="ID сотрудника">
+  <input type="text" id="task_title" placeholder="Заголовок задачи">
+  <textarea id="task_body" placeholder="Описание задачи"></textarea>
+  <button onclick="createTask()">Создать задачу</button>
+
+  <h2>Объявить тревогу</h2>
+  <select id="alert_level">
     <option value="Низкий">Низкий</option>
     <option value="Средний">Средний</option>
-    <option value="Высокий">Высокий</option>
+    <option value="Критический">Критический</option>
   </select>
-  <button onclick="createTask()">Создать задачу</button>
-</div>
-<div class="block">
-  <h2>Отправить тревогу</h2>
-  <button onclick="sendAlert()">🚨 Объявить тревогу</button>
-</div>
-<script src="/static/js/admin.js"></script>
+  <button onclick="sendAlert()">Отправить тревогу</button>
+
+  <h2>Полученные отчёты</h2>
+  <div id="results"></div>
+
+<script>
+function addUser() {
+  fetch('/api/add_user', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      user_id: document.getElementById('new_id').value,
+      codename: document.getElementById('new_name').value
+    })
+  }).then(() => alert("Сотрудник добавлен"));
+}
+
+function createTask() {
+  fetch('/api/create_task', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      user_id: document.getElementById('task_user').value,
+      title: document.getElementById('task_title').value,
+      body: document.getElementById('task_body').value
+    })
+  }).then(() => alert("Задача создана"));
+}
+
+function sendAlert() {
+  fetch('/api/alert', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ level: document.getElementById('alert_level').value })
+  }).then(() => alert("Тревога отправлена"));
+}
+
+fetch("/api/get_results").then(res => res.json()).then(data => {
+  const container = document.getElementById("results");
+  data.forEach(r => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `<strong>ID:</strong> ${r.user_id}<br><strong>Отчёт:</strong> ${r.text}`;
+    container.appendChild(div);
+  });
+});
+</script>
 </body>
 </html>
