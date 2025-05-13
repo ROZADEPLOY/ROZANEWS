@@ -1,18 +1,7 @@
-body {
-  background: linear-gradient(#003300, black);
-  color: white;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-button {
-  background: #c00;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1.2em;
-  border-radius: 5px;
-}
+
+body { background: #0e1e0e; color: #e0ffe0; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+h1 { text-align: center; color: #88ff88; }
+.block { background: #1f2f1f; padding: 20px; margin: 20px 0; border-radius: 10px; }
+input, textarea, select { width: 100%; padding: 10px; margin: 5px 0; background: #111; color: #fff; border: 1px solid #333; border-radius: 5px; }
+button { padding: 10px 20px; background: #225522; color: white; border: none; border-radius: 5px; cursor: pointer; }
+button:hover { background: #337733; }
