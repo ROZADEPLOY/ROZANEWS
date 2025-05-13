@@ -1,12 +1,21 @@
 
+import os
 from flask import Flask, request, render_template, redirect, jsonify
+from telegram import Bot
+from telegram.utils.request import Request
+
 app = Flask(__name__)
 
-ADMIN_IDS = [7264453091]
+# Конфигурация
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+ADMIN_IDS = list(map(int, os.getenv("ADMIN_IDS", "7264453091").split(",")))
 USERS = {7264453091: "Админ"}
 TASKS = []
-ALERT = {"active": False}
+ALERT = {"active": False, "level": "Нет"}
 RESULTS = []
+
+# Telegram Bot
+bot = Bot(token=BOT_TOKEN, request=Request())
 
 @app.route("/")
 def index():
@@ -38,6 +47,11 @@ def add_user():
 @app.route("/api/create_task", methods=["POST"])
 def create_task():
     TASKS.append(request.json)
+    try:
+        bot.send_message(chat_id=int(request.json["user_id"]),
+                         text=f"📝 Новая задача: {request.json['title']}")
+    except Exception as e:
+        print("Ошибка уведомления о задаче:", e)
     return jsonify(success=True)
 
 @app.route("/api/get_tasks", methods=["POST"])
@@ -49,6 +63,13 @@ def get_tasks():
 @app.route("/api/alert", methods=["POST"])
 def alert():
     ALERT["active"] = True
+    ALERT["level"] = request.json.get("level", "Не указан")
+    # Уведомляем всех сотрудников
+    for uid in USERS:
+        try:
+            bot.send_message(chat_id=uid, text=f"🚨 Уровень тревоги: {ALERT['level']}")
+        except Exception as e:
+            print("Ошибка рассылки тревоги:", e)
     return jsonify(success=True)
 
 @app.route("/api/get_alert")
@@ -58,4 +79,14 @@ def get_alert():
 @app.route("/api/upload_result", methods=["POST"])
 def upload_result():
     RESULTS.append(request.json)
+    # Уведомим админа
+    for aid in ADMIN_IDS:
+        try:
+            bot.send_message(chat_id=aid, text=f"📄 Новый отчёт от ID {request.json['user_id']}")
+        except Exception as e:
+            print("Ошибка уведомления об отчёте:", e)
     return jsonify(success=True)
+
+@app.route("/api/get_results")
+def get_results():
+    return jsonify(RESULTS)
