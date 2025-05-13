@@ -1,18 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Роза</title>
-  <link rel="stylesheet" href="/static/css/style.css" />
+  <title>Роза (ЦОИ)</title>
 </head>
-<body>
-  <div id="app">
-    <h1>🌹 Добро пожаловать в «Розу»</h1>
-    <p>Web-интерфейс для секретной группы</p>
-    <button onclick="checkAccess()">Проверить доступ</button>
-  </div>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="/static/js/main.js"></script>
+<body style="font-family: sans-serif; background: #002d00; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
+  <h1>🌹 Добро пожаловать в «Розу»</h1>
+  <p>Web-интерфейс для секретной группы</p>
+  <a href="/check_user?id={{ user_id }}" style="padding: 10px 20px; background-color: crimson; color: white; text-decoration: none; border-radius: 5px;">Проверить доступ</a>
 </body>
 </html>

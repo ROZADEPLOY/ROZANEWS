@@ -1,43 +1,6 @@
+
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <title>Роза — Админ</title>
-  <link rel="stylesheet" href="/static/css/style.css" />
-</head>
-<body>
-  <h1>Панель администратора</h1>
-
-  <section>
-    <h2>Добавить сотрудника</h2>
-    <input id="newUserId" type="number" placeholder="ID сотрудника" />
-    <input id="newUserCodename" type="text" placeholder="Позывной" />
-    <button onclick="addUser()">Добавить</button>
-  </section>
-
-  <section>
-    <h2>Поставить задачу</h2>
-    <input id="taskUserId" type="number" placeholder="ID сотрудника" />
-    <input id="taskTitle" type="text" placeholder="Заголовок" />
-    <textarea id="taskDesc" placeholder="Описание"></textarea>
-    <select id="taskPriority">
-      <option value="Низкий">Низкий</option>
-      <option value="Средний">Средний</option>
-      <option value="Высокий">Высокий</option>
-    </select>
-    <button onclick="createTask()">Создать</button>
-  </section>
-
-  <section>
-    <h2>Объявить тревогу</h2>
-    <button onclick="sendAlert()">🚨 Отправить тревогу</button>
-  </section>
-
-  <section>
-    <h2>Все задачи</h2>
-    <ul id="taskList"></ul>
-  </section>
-
-  <script src="/static/js/admin.js"></script>
-</body>
+<head><meta charset="UTF-8"><title>Панель Администратора</title></head>
+<body><h1>Панель администратора</h1><p>Функции: задачи, тревоги, сотрудники и т.д.</p></body>
 </html>
