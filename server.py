@@ -1,67 +1,58 @@
-import os
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-BOT_TOKEN = os.getenv("BOT_TOKEN", "")
-ADMIN_IDS = list(map(int, os.getenv("ADMIN_IDS", "").split(",")))
+ADMIN_IDS = [7264453091]
+USERS = {}
 
-users = {}
-tasks = []
-alerts = []
-uploads = {}
+TASKS = []
+ALERT = {"active": False}
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
-@app.route("/check_user", methods=["POST"])
+@app.route("/api/check_user", methods=["POST"])
 def check_user():
-    user_id = int(request.json.get("user_id", 0))
+    data = request.json
+    user_id = int(data.get("user_id", 0))
     if user_id in ADMIN_IDS:
         return jsonify({"role": "admin"})
-    elif user_id in users:
-        return jsonify({"role": "staff", "name": users[user_id]})
-    return jsonify({"role": "none"}), 403
+    elif user_id in USERS:
+        return jsonify({"role": "user", "codename": USERS[user_id]})
+    else:
+        return jsonify({"role": "none"})
 
-@app.route("/add_user", methods=["POST"])
+@app.route("/api/add_user", methods=["POST"])
 def add_user():
     data = request.json
-    user_id = int(data.get("id"))
-    callsign = data.get("callsign")
-    users[user_id] = callsign
-    return jsonify({"status": "added"})
-
-@app.route("/add_task", methods=["POST"])
-def add_task():
-    task = request.json
-    tasks.append(task)
-    return jsonify({"status": "task_added"})
-
-@app.route("/tasks/<int:user_id>")
-def get_tasks(user_id):
-    return jsonify([t for t in tasks if t["user_id"] == user_id])
-
-@app.route("/alert", methods=["POST"])
-def send_alert():
-    alert = request.json.get("message")
-    alerts.append(alert)
-    return jsonify({"status": "alert_sent"})
-
-@app.route("/alerts")
-def get_alerts():
-    return jsonify(alerts)
-
-@app.route("/upload_result", methods=["POST"])
-def upload_result():
-    data = request.json
     user_id = int(data["user_id"])
-    result = data["result"]
-    uploads.setdefault(user_id, []).append(result)
-    return jsonify({"status": "received"})
+    codename = data["codename"]
+    USERS[user_id] = codename
+    return jsonify(success=True)
 
-@app.route("/results")
-def results():
-    return jsonify(uploads)
+@app.route("/api/create_task", methods=["POST"])
+def create_task():
+    data = request.json
+    TASKS.append(data)
+    return jsonify(success=True)
+
+@app.route("/api/get_tasks", methods=["POST"])
+def get_tasks():
+    user_id = int(request.json["user_id"])
+    if user_id in ADMIN_IDS:
+        return jsonify(TASKS)
+    else:
+        return jsonify([t for t in TASKS if t["user_id"] == user_id])
+
+@app.route("/api/alert", methods=["POST"])
+def alert():
+    ALERT["active"] = request.json["active"]
+    return jsonify(success=True)
+
+@app.route("/api/get_alert", methods=["POST"])
+def get_alert():
+    return jsonify(ALERT)
