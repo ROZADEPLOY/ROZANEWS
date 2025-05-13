@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: roza-webapp
+    name: rozanews
     env: python
     buildCommand: "pip install -r requirements.txt"
     startCommand: "gunicorn wsgi:app"
@@ -10,4 +10,4 @@ services:
       - key: ADMIN_IDS
         value: 7264453091
       - key: WEBAPP_URL
-        value: https://rozawebapp.onrender.com
+        value: https://rozanews.onrender.com

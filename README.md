@@ -1,20 +1,10 @@
-# 🌹 Роза — Telegram WebApp
+# 🌹 ROZANEWS — Секретный WebApp
 
-Готовый Telegram WebApp + Flask backend с деплоем на Render.
+Telegram WebApp с загрузкой отчётов, правами доступа и SQLite.
 
-## 🔗 Ссылка на деплой
+## 🚀 Как развернуть
 
-https://rozawebapp.onrender.com/
-
-## ✅ Переменные окружения
-
-- `BOT_TOKEN` — токен Telegram-бота
-- `ADMIN_IDS` — список ID админов через запятую
-- `WEBAPP_URL` — адрес WebApp
-
-## 🚀 Локальный запуск
-
-```bash
-pip install -r requirements.txt
-gunicorn wsgi:app
-```
+1. Залей на GitHub
+2. Подключи на Render.com → New Web Service
+3. Build: pip install -r requirements.txt
+4. Start: gunicorn wsgi:app
