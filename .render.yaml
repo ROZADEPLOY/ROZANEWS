@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: roza-webapp
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn wsgi:app"
+    envVars:
+      - key: BOT_TOKEN
+        value: 7831735814:AAHYezUpXD7S3O7U2nZD_UV-DGNAWgTH7gg
+      - key: ADMIN_IDS
+        value: 7264453091
+      - key: WEBAPP_URL
+        value: https://rozawebapp.onrender.com

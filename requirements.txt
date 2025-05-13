@@ -1,0 +1,4 @@
+flask
+flask-cors
+gunicorn
+python-telegram-bot==13.15
