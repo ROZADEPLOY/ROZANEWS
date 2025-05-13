@@ -1,7 +1,63 @@
 
-body { background: #0e1e0e; color: #e0ffe0; font-family: 'Segoe UI', sans-serif; padding: 20px; }
-h1 { text-align: center; color: #88ff88; }
-.block { background: #1f2f1f; padding: 20px; margin: 20px 0; border-radius: 10px; }
-input, textarea, select { width: 100%; padding: 10px; margin: 5px 0; background: #111; color: #fff; border: 1px solid #333; border-radius: 5px; }
-button { padding: 10px 20px; background: #225522; color: white; border: none; border-radius: 5px; cursor: pointer; }
-button:hover { background: #337733; }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #003300, #000);
+    color: white;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 1rem;
+}
+
+h1, h2, h3 {
+    color: #0f0;
+}
+
+input, textarea, select, button {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.alert {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: red;
+    color: white;
+    border-radius: 4px;
+}
+
+.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.btn {
+    padding: 1rem;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+}
