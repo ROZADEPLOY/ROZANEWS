@@ -23,7 +23,7 @@ from urllib.parse import parse_qs
 # Конфигурация
 BOT_TOKEN = "7831735814:AAGTbpWdukE0tXLuCD6P74dcoI0dau1HYHk"  # Вставьте токен вашего бота
 WEBAPP_URL = "http://localhost:5000"  # URL где будет доступен WebApp
-ADMIN_IDS = [123456789]  # Telegram ID администраторов
+ADMIN_IDS = [7264453091]  # Telegram ID администраторов
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'}
 
