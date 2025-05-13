@@ -2,52 +2,15 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Роза — ЦОИ</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            background: linear-gradient(to bottom, #0b3d0b, #000);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        h1 { font-size: 2em; margin: 0.5em 0; }
-        button {
-            padding: 10px 20px;
-            background: crimson;
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-        }
-    </style>
+    <title>Роза</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <h1>🌹 Добро пожаловать в «Розу»</h1>
-    <p>Web-интерфейс для секретной группы</p>
-    <button onclick="checkAccess()">Проверить доступ</button>
-    <script>
-        function checkAccess() {
-            Telegram.WebApp.ready();
-            fetch('/api/check_user', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: Telegram.WebApp.initDataUnsafe.user.id })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.ok) {
-                    window.location.href = '/dashboard';
-                } else {
-                    alert('❌ У вас нет административных прав');
-                }
-            });
-        }
-    </script>
+    <div id="app">
+        <h1>🌹 Добро пожаловать в «Розу»</h1>
+        <p>Web-интерфейс для секретной группы</p>
+        <button onclick="checkAccess()">Проверить доступ</button>
+    </div>
+    <script src="/static/js/main.js"></script>
 </body>
 </html>
